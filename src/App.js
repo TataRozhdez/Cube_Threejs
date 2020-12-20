@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react'
 import { Canvas } from 'react-three-fiber'
+// import { useSpring, animated } from 'react-spring'
+// import { useDrag } from 'react-use-gesture'
 import { Cube } from './components/Cube/Cube'
 import { getNewCube } from './redux/cubeAction'
 
