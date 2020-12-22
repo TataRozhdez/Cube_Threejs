@@ -1,8 +1,5 @@
 import React, { useEffect } from 'react'
 import { Canvas } from 'react-three-fiber'
-import { PerspectiveCamera } from 'three'
-// import { useSpring, animated } from 'react-spring'
-// import { useDrag } from 'react-use-gesture'
 import { Cube } from './components/Cube/Cube'
 import { getNewCube } from './redux/cubeAction'
 
@@ -20,13 +17,19 @@ export const App = () => {
   }, [])
 
   return (
-    <Canvas className='App'>
-      {/* <ambientLight /> */}
-      {/* <pointLight position={[10, 10, 10]} /> */}
-      <spotLight position={[10, 10, 10]} color={0xffffff} />
-      <spotLight position={[10, 0, 10]} color={0xffffff} />
-      <spotLight position={[0, 10, 0]} color={0xffffff} />
+    <Canvas>
+      <ambientLight />
+      <Cube position={[0, 0, 1]} />
+      <Cube position={[1, 0, 1]} />
+      <Cube position={[2, 0, 1]} />
+
+      <Cube position={[0, 1, 1]} />
       <Cube position={[1, 1, 1]} />
+      <Cube position={[2, 1, 1]} />
+
+      <Cube position={[0, 2, 1]} />
+      <Cube position={[1, 2, 1]} />
+      <Cube position={[2, 2, 1]} />
     </Canvas>
   )
 }

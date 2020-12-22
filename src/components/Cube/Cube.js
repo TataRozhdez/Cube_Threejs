@@ -1,58 +1,53 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useRef } from 'react'
 import { useFrame } from 'react-three-fiber'
 import * as THREE from 'three'
+import red from '../../texture/red.svg'
+import green from '../../texture/green.svg'
+import blue from '../../texture/blue.svg'
+import white from '../../texture/white.svg'
+import orange from '../../texture/orange.svg'
+import yellow from '../../texture/yellow.svg'
 
 export const Cube = (props) => {
   const mesh = useRef()
 
-  const globalGeometry = new THREE.BoxGeometry(1, 1, 1)
-  const globalMaterial = new THREE.MeshBasicMaterial({
-    color: 0xffffff,
-    vertexColors: THREE.FaceColors,
-  })
+  const loadManager = new THREE.LoadingManager()
+  const loader = new THREE.TextureLoader(loadManager)
 
-  useEffect(() => {
-    globalGeometry.faces[0].color.set(new THREE.Color(0x07a42e))
-    globalGeometry.faces[0 + 1].color.set(new THREE.Color(0x07a42e))
+  const materials = [
+    new THREE.MeshStandardMaterial({
+      map: loader.load(red),
+    }),
+    new THREE.MeshStandardMaterial({
+      map: loader.load(orange),
+    }),
+    new THREE.MeshStandardMaterial({
+      map: loader.load(yellow),
+    }),
+    new THREE.MeshStandardMaterial({
+      map: loader.load(white),
+    }),
+    new THREE.MeshStandardMaterial({
+      map: loader.load(green),
+    }),
+    new THREE.MeshStandardMaterial({
+      map: loader.load(blue),
+    }),
+  ]
 
-    const red = new THREE.Color(0xea1e00)
-    const green = new THREE.Color(0x07a42e)
-    const yellow = new THREE.Color(0xefff00)
-    const blue = new THREE.Color(0x1d00ff)
-    const orange = new THREE.Color(0xf69e0e)
-    const white = new THREE.Color(0xffffff)
+  const globalGeometry = new THREE.BoxBufferGeometry(1, 1, 1)
 
-    const colors = [red, green, yellow, blue, orange, white]
-
-    globalGeometry.faces[0].color.set(colors[0])
-    globalGeometry.faces[1].color.set(colors[0])
-
-    globalGeometry.faces[2].color.set(colors[1])
-    globalGeometry.faces[3].color.set(colors[1])
-
-    globalGeometry.faces[4].color.set(colors[2])
-    globalGeometry.faces[5].color.set(colors[2])
-
-    globalGeometry.faces[6].color.set(colors[3])
-    globalGeometry.faces[7].color.set(colors[3])
-
-    globalGeometry.faces[8].color.set(colors[4])
-    globalGeometry.faces[9].color.set(colors[4])
-
-    globalGeometry.faces[10].color.set(colors[5])
-    globalGeometry.faces[11].color.set(colors[5])
-  }, [globalGeometry.faces])
-
-  useFrame(() => {
-    mesh.current.rotation.x = mesh.current.rotation.y += 0.01
-  })
+  // useFrame(() => {
+  // mesh.current.rotation.x = mesh.current.rotation.y += 0.01
+  // mesh.current.rotation.y = 1
+  // })
 
   return (
     <mesh
       {...props}
       ref={mesh}
       geometry={globalGeometry}
-      material={globalMaterial}
+      material={materials}
       // onPointerEnter={(e) => console.log('enter')}
       // onClick={(e) => console.log('click')}
       // onDoubleClick={(e) => console.log('double click')}
