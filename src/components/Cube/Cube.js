@@ -1,5 +1,4 @@
 import React, { useRef } from 'react'
-import { useFrame } from 'react-three-fiber'
 import * as THREE from 'three'
 import red from '../../texture/red.svg'
 import green from '../../texture/green.svg'
@@ -17,30 +16,31 @@ export const Cube = (props) => {
   const materials = [
     new THREE.MeshStandardMaterial({
       map: loader.load(red),
+      metalness: 0.1,
     }),
     new THREE.MeshStandardMaterial({
       map: loader.load(orange),
+      metalness: 0.1,
     }),
     new THREE.MeshStandardMaterial({
       map: loader.load(yellow),
+      metalness: 0.1,
     }),
     new THREE.MeshStandardMaterial({
       map: loader.load(white),
+      metalness: 0.1,
     }),
     new THREE.MeshStandardMaterial({
       map: loader.load(green),
+      metalness: 0.1,
     }),
     new THREE.MeshStandardMaterial({
       map: loader.load(blue),
+      metalness: 0.1,
     }),
   ]
 
   const globalGeometry = new THREE.BoxBufferGeometry(1, 1, 1)
-
-  // useFrame(() => {
-  // mesh.current.rotation.x = mesh.current.rotation.y += 0.01
-  // mesh.current.rotation.y = 1
-  // })
 
   return (
     <mesh
@@ -48,14 +48,8 @@ export const Cube = (props) => {
       ref={mesh}
       geometry={globalGeometry}
       material={materials}
-      // onPointerEnter={(e) => console.log('enter')}
-      // onClick={(e) => console.log('click')}
-      // onDoubleClick={(e) => console.log('double click')}
-      // onWheel={(e) => console.log('wheel spins')}
-
-      // onPointerMove={(e) => console.log('move')}
-      // onPointerOver={(event) => setHover(true)}
-      // onPointerOut={(event) => setHover(false)}
+      castShadow
+      receiveShadow
     />
   )
 }
