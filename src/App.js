@@ -1,45 +1,67 @@
 import React, { useEffect, useMemo, useRef } from 'react'
-import { Canvas, useThree, extend, useFrame } from 'react-three-fiber'
-import {
-  OrbitControls,
-  softShadows,
-  StandardEffects,
-  draco,
-} from '@react-three/drei'
+import { Canvas, useFrame } from 'react-three-fiber'
+import { OrbitControls, softShadows } from '@react-three/drei'
 import { Cube } from './components/Cube/Cube'
 import { getNewCube } from './redux/cubeAction'
 
-// Colors:
-//  F - Green;
-//  R - Orange;
-//  L - Red;
-//  B - Blue;
-//  D - White;
-//  U - Yellow.
-
 softShadows()
 
-const Cubes = ({ number = 33 }) => {
+const Cubes = ({ number = 3 }) => {
   const ref = useRef()
+  const half = (number - 1) / 2
+
+  // const positions = useMemo(
+  //   () =>
+  //     [...new Array(number)].map(() => [
+  //       3 - Math.random() * 6,
+  //       Math.random() * 4,
+  //       3 - Math.random() * 6,
+  //     ]),
+  //   [number]
+  // )
+
   const positions = useMemo(
     () =>
-      [...new Array(number)].map(() => [
-        3 - Math.random() * 6,
-        Math.random() * 4,
-        3 - Math.random() * 6,
-      ]),
-    []
+      [...new Array(number)].map(() => {
+        for (let x = 0; x < 26; x++)
+          for (let y = 0; y < 26; y++)
+            for (let z = 0; z < 26; z++) {
+              return {
+                id: `${x}-${y}-${z}`,
+                position: [(x - half) * 1, (y - half) * 1, (y - half) * 1],
+              }
+            }
+      }),
+    [half, number]
   )
-  useFrame(
-    (state) =>
-      (ref.current.rotation.y =
-        Math.sin(state.clock.getElapsedTime() / 2) * Math.PI)
-  )
+
+  // const position = []
+
+  // useFrame(() => {
+  //   for (let x = 0; x < number; x++)
+  //     for (let y = 0; y < number; y++)
+  //       for (let z = 0; z < number; z++) {
+  //         position.push({
+  //           id: `${x}-${y}-${z}`,
+  //           position: [(x - half) * 1, (y - half) * 1, (y - half) * 1],
+  //         })
+  //       }
+  // })
+
+  // useFrame(
+  //   (state) =>
+  //     (ref.current.rotation.y =
+  //       Math.sin(state.clock.getElapsedTime() / 2) * Math.PI)
+  // )
+
+  console.log(positions)
+
   return (
     <group ref={ref}>
-      {positions.map((pos, index) => (
+      {/* {position.map((pos, index) => (
         <Cube key={index} position={pos} />
-      ))}
+      ))} */}
+      <Cube />
     </group>
   )
 }
@@ -64,7 +86,7 @@ export const App = () => {
         shadow-camera-top={10}
         shadow-camera-bottom={-10}
       />
-      <group position={[0, 0, 0]}>
+      <group position={[0, -1, 0]}>
         <mesh
           rotation={[-Math.PI / 2, 0, 0]}
           position={[0, -0.5, 0]}
@@ -73,8 +95,6 @@ export const App = () => {
           <planeBufferGeometry attach='geometry' args={[100, 100]} />
           <shadowMaterial attach='material' transparent opacity={0.4} />
         </mesh>
-        {/* <Cube rotation={[10, 10.2, 0]} position={[0, 0, 0]} /> */}
-
         <Cubes />
       </group>
       <OrbitControls enableZoom={false} />

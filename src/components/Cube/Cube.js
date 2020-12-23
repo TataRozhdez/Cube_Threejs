@@ -7,6 +7,18 @@ import white from '../../texture/white.svg'
 import orange from '../../texture/orange.svg'
 import yellow from '../../texture/yellow.svg'
 
+// Colors:
+//  F - Green;
+//  R - Orange;
+//  L - Red;
+//  B - Blue;
+//  D - White;
+//  U - Yellow.
+
+/*
+ * сократить код arr materials (new Array().fill.map...)
+ */
+
 export const Cube = (props) => {
   const mesh = useRef()
 
@@ -23,11 +35,11 @@ export const Cube = (props) => {
       metalness: 0.1,
     }),
     new THREE.MeshStandardMaterial({
-      map: loader.load(yellow),
+      map: loader.load(white),
       metalness: 0.1,
     }),
     new THREE.MeshStandardMaterial({
-      map: loader.load(white),
+      map: loader.load(yellow),
       metalness: 0.1,
     }),
     new THREE.MeshStandardMaterial({
