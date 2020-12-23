@@ -15,10 +15,6 @@ import yellow from '../../texture/yellow.svg'
 //  D - White;
 //  U - Yellow.
 
-/*
- * сократить код arr materials (new Array().fill.map...)
- */
-
 export const Cube = (props) => {
   const mesh = useRef()
 
@@ -51,6 +47,8 @@ export const Cube = (props) => {
       metalness: 0.1,
     }),
   ]
+
+  console.log(materials)
 
   const globalGeometry = new THREE.BoxBufferGeometry(1, 1, 1)
 

@@ -1,79 +1,40 @@
-import React, { useEffect, useMemo, useRef } from 'react'
-import { Canvas, useFrame } from 'react-three-fiber'
-import { OrbitControls, softShadows } from '@react-three/drei'
-import { Cube } from './components/Cube/Cube'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useSpring, animated } from 'react-spring'
 import { getNewCube } from './redux/cubeAction'
+import { MyCanvas } from './components/MyCanvas/MyCanvas'
 
-softShadows()
-
-const Cubes = ({ number = 3 }) => {
-  const ref = useRef()
-
-  const positions = useMemo(() => {
-    const pos = []
-    const half = (number - 1) / 2
-
-    for (let x = 0; x < number; x++)
-      for (let y = 0; y < number; y++)
-        for (let z = 0; z < number; z++) {
-          pos.push({
-            id: `${x}-${y}-${z}`,
-            position: [(x - half) * 1, (y - half) * 1, (z - half) * 1],
-          })
-        }
-
-    return pos
-  }, [number])
-
-  // useFrame(
-  //   (state) =>
-  //     (ref.current.rotation.y =
-  //       Math.sin(state.clock.getElapsedTime() / 2) * Math.PI)
-  // )
-
-  console.log(positions)
-
-  return (
-    <group ref={ref}>
-      {positions.map((pos) => (
-        <Cube key={pos.id} position={pos.position} />
-      ))}
-    </group>
-  )
-}
+const calc = (x, y) => [x - window.innerWidth / 2, y - window.innerHeight / 2]
+const trans1 = (x, y) => `translate3d(${x / 10}px,${y / 10}px,0)`
 
 export const App = () => {
+  const dispatch = useDispatch()
+  const { cube, solve, error, loading } = useSelector((state) => state)
+
+  const [props, set] = useSpring(() => ({
+    xy: [0, 0],
+    config: { mass: 10, tension: 550, friction: 140 },
+  }))
+
   useEffect(() => {
-    getNewCube()
+    dispatch(getNewCube())
   }, [])
 
   return (
-    <Canvas shadowMap colorManagement>
-      <ambientLight />
-      <directionalLight
-        castShadow
-        position={[2.5, 8, 5]}
-        intensity={1.5}
-        shadow-mapSize-width={1024}
-        shadow-mapSize-height={1024}
-        shadow-camera-far={50}
-        shadow-camera-left={-10}
-        shadow-camera-right={10}
-        shadow-camera-top={10}
-        shadow-camera-bottom={-10}
-      />
-      <group position={[0, 0, 0]}>
-        <mesh
-          rotation={[-Math.PI / 2, 0, 0]}
-          position={[0, -1.5, 0]}
-          receiveShadow
+    <div
+      onMouseMove={({ clientX: x, clientY: y }) => set({ xy: calc(x, y) })}
+      className='my-canvas'
+    >
+      {error && <h1>Somthing go wrong...</h1>}
+      {loading && <h1>Loading...</h1>}
+      {cube && solve && (
+        <animated.div
+          style={{ transform: props.xy.interpolate(trans1) }}
+          className='my-canvas'
         >
-          <planeBufferGeometry attach='geometry' args={[100, 100]} />
-          <shadowMaterial attach='material' transparent opacity={0.4} />
-        </mesh>
-        <Cubes />
-      </group>
-      <OrbitControls enableZoom={false} />
-    </Canvas>
+          <MyCanvas />
+        </animated.div>
+      )}
+    </div>
   )
 }

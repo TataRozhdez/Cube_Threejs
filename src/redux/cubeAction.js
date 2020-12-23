@@ -1,8 +1,13 @@
 import Cube from 'cubejs'
+import { GET_NEW_CUBE } from './types'
 
 export const getNewCube = () => {
   const cube = Cube.random()
   Cube.initSolver()
-  console.log(cube.solve())
-  console.log(Cube.fromString(cube))
+
+  return {
+    type: GET_NEW_CUBE,
+    payload: Cube.fromString(cube),
+    solve: cube.solve(),
+  }
 }
