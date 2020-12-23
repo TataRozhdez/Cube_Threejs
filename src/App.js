@@ -9,7 +9,7 @@ const trans1 = (x, y) => `translate3d(${x / 10}px,${y / 10}px,0)`
 
 export const App = () => {
   const dispatch = useDispatch()
-  const { cube, solve, error, loading } = useSelector((state) => state)
+  const { cube, error, loading } = useSelector((state) => state)
 
   const [props, set] = useSpring(() => ({
     xy: [0, 0],
@@ -27,7 +27,7 @@ export const App = () => {
     >
       {error && <h1>Somthing go wrong...</h1>}
       {loading && <h1>Loading...</h1>}
-      {cube && solve && (
+      {cube && (
         <animated.div
           style={{ transform: props.xy.interpolate(trans1) }}
           className='my-canvas'

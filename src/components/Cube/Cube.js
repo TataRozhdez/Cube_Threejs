@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import * as THREE from 'three'
 import red from '../../texture/red.svg'
 import green from '../../texture/green.svg'
@@ -16,8 +16,6 @@ import yellow from '../../texture/yellow.svg'
 //  U - Yellow.
 
 export const Cube = (props) => {
-  const mesh = useRef()
-
   const loadManager = new THREE.LoadingManager()
   const loader = new THREE.TextureLoader(loadManager)
 
@@ -48,14 +46,11 @@ export const Cube = (props) => {
     }),
   ]
 
-  console.log(materials)
-
   const globalGeometry = new THREE.BoxBufferGeometry(1, 1, 1)
 
   return (
     <mesh
       {...props}
-      ref={mesh}
       geometry={globalGeometry}
       material={materials}
       castShadow

@@ -28,7 +28,7 @@ export const MyCanvas = () => {
           receiveShadow
         >
           <planeBufferGeometry attach='geometry' args={[100, 100]} />
-          <shadowMaterial attach='material' transparent opacity={0.4} />
+          <shadowMaterial attach='material' transparent opacity={0.5} />
         </mesh>
         <Cubes />
       </group>
