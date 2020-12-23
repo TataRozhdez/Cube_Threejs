@@ -8,45 +8,22 @@ softShadows()
 
 const Cubes = ({ number = 3 }) => {
   const ref = useRef()
-  const half = (number - 1) / 2
 
-  // const positions = useMemo(
-  //   () =>
-  //     [...new Array(number)].map(() => [
-  //       3 - Math.random() * 6,
-  //       Math.random() * 4,
-  //       3 - Math.random() * 6,
-  //     ]),
-  //   [number]
-  // )
+  const positions = useMemo(() => {
+    const pos = []
+    const half = (number - 1) / 2
 
-  const positions = useMemo(
-    () =>
-      [...new Array(number)].map(() => {
-        for (let x = 0; x < 26; x++)
-          for (let y = 0; y < 26; y++)
-            for (let z = 0; z < 26; z++) {
-              return {
-                id: `${x}-${y}-${z}`,
-                position: [(x - half) * 1, (y - half) * 1, (y - half) * 1],
-              }
-            }
-      }),
-    [half, number]
-  )
+    for (let x = 0; x < number; x++)
+      for (let y = 0; y < number; y++)
+        for (let z = 0; z < number; z++) {
+          pos.push({
+            id: `${x}-${y}-${z}`,
+            position: [(x - half) * 1, (y - half) * 1, (z - half) * 1],
+          })
+        }
 
-  // const position = []
-
-  // useFrame(() => {
-  //   for (let x = 0; x < number; x++)
-  //     for (let y = 0; y < number; y++)
-  //       for (let z = 0; z < number; z++) {
-  //         position.push({
-  //           id: `${x}-${y}-${z}`,
-  //           position: [(x - half) * 1, (y - half) * 1, (y - half) * 1],
-  //         })
-  //       }
-  // })
+    return pos
+  }, [number])
 
   // useFrame(
   //   (state) =>
@@ -58,10 +35,9 @@ const Cubes = ({ number = 3 }) => {
 
   return (
     <group ref={ref}>
-      {/* {position.map((pos, index) => (
-        <Cube key={index} position={pos} />
-      ))} */}
-      <Cube />
+      {positions.map((pos) => (
+        <Cube key={pos.id} position={pos.position} />
+      ))}
     </group>
   )
 }
@@ -86,10 +62,10 @@ export const App = () => {
         shadow-camera-top={10}
         shadow-camera-bottom={-10}
       />
-      <group position={[0, -1, 0]}>
+      <group position={[0, 0, 0]}>
         <mesh
           rotation={[-Math.PI / 2, 0, 0]}
-          position={[0, -0.5, 0]}
+          position={[0, -1.5, 0]}
           receiveShadow
         >
           <planeBufferGeometry attach='geometry' args={[100, 100]} />
