@@ -1,9 +1,11 @@
-import { GET_NEW_CUBE, GET_RANDOM_CUBE } from './types'
+import { GET_NEW_CUBE, GET_RANDOM_CUBE, STOP_GAME } from './types'
 
 const initialState = {
   cube: null,
   random: null,
   solve: null,
+  play: false,
+  // timer: '00:00:00',
   loading: true,
   error: false,
 }
@@ -22,6 +24,16 @@ export function cubeReducer(state = initialState, action) {
         ...state,
         random: action.payload,
         solve: action.solve,
+        play: true,
+      }
+    case STOP_GAME:
+      return {
+        ...state,
+        random: null,
+        solve: null,
+        play: false,
+        loading: false,
+        error: false,
       }
 
     default:

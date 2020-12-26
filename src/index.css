@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'Bungee Shade';
+  src: url(./resources/BungeeShade-Regular.ttf);
+}
+
 *,
 *:before,
 *:after {
@@ -28,7 +33,7 @@ body,
 }
 
 body {
-  font-family: 'BungeeFont', sans-serif;
+  font-family: 'Bungee Shade', cursive;
   font-weight: normal;
   font-style: normal;
   line-height: 1;
@@ -41,6 +46,69 @@ body {
 
 canvas,
 .my-canvas {
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+}
+
+.my-canvas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h1 {
+  position: absolute;
+  top: 20%;
+  text-align: center;
+  z-index: 10;
+  margin: 0;
+}
+
+button {
+  background: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-group {
+  position: absolute;
+  bottom: 30%;
+  display: flex;
+  flex-direction: row;
   width: 100%;
-  height: 100%;
+  height: auto;
+  padding: 10px;
+  background: none;
+  justify-content: center;
+}
+
+.btn-group.play {
+  bottom: 3%;
+  justify-content: space-between;
+  background: linear-gradient(
+    90deg,
+    rgb(229 228 228 / 29%) 0%,
+    rgb(106 106 106 / 73%) 100%
+  );
+}
+
+.btn-group_section {
+  display: flex;
+  flex-direction: row;
+}
+
+.play-pause-btn {
+  width: 5vw;
+  height: 5vw;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.play-pause-btn img {
+  width: 5vw;
 }

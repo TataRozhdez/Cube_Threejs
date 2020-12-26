@@ -7,7 +7,7 @@ softShadows()
 
 export const MyCanvas = () => {
   return (
-    <Canvas shadowMap colorManagement>
+    <Canvas shadowMap>
       <ambientLight />
       <directionalLight
         castShadow

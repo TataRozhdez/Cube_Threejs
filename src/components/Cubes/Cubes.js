@@ -1,4 +1,5 @@
 import React, { useMemo, useRef } from 'react'
+import { useFrame } from 'react-three-fiber'
 import { Cube } from '../Cube/Cube'
 
 export const Cubes = ({ number = 3 }) => {
@@ -19,6 +20,10 @@ export const Cubes = ({ number = 3 }) => {
 
     return pos
   }, [number])
+
+  useFrame(() => {
+    ref.current.rotation.y = 0.75
+  })
 
   return (
     <group ref={ref}>
