@@ -25,10 +25,16 @@ export const Cubes = ({ number = 3 }) => {
     ref.current.rotation.y = 0.75
   })
 
+  const handleMove = (id) => {
+    console.log(id)
+  }
+
+  console.log('1', positions)
+
   return (
-    <group ref={ref}>
+    <group ref={ref} dispose={null}>
       {positions.map((pos) => (
-        <Cube key={pos.id} position={pos.position} />
+        <Cube key={pos.id} position={pos.position} pos={pos} />
       ))}
     </group>
   )

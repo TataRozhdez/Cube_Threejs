@@ -19,6 +19,10 @@ export const PlayBtns = () => {
     dispatch(stopCubeGame())
   }
 
+  const handleIdea = () => {
+    console.log('Idea')
+  }
+
   let nameClasse = ['btn-group']
   play ? nameClasse.push('play') : (nameClasse = ['btn-group'])
 
@@ -34,7 +38,7 @@ export const PlayBtns = () => {
           </button>
         )}
       </div>
-      <button className='play-pause-btn idea' onClick={handleRandom}>
+      <button className='play-pause-btn idea' onClick={handleIdea}>
         <img src={ideaImg} alt='Idea' />
       </button>
     </div>
