@@ -1,6 +1,6 @@
 import React from 'react'
 import { Canvas } from 'react-three-fiber'
-import { Physics, useSphere, useBox, usePlane } from 'use-cannon'
+import { Physics } from 'use-cannon'
 import { OrbitControls, softShadows } from '@react-three/drei'
 import { Cubes } from '../Cubes/Cubes'
 
@@ -16,12 +16,7 @@ export const MyCanvas = () => {
 
   return (
     <Canvas shadowMap>
-      <Physics
-        iterations={20}
-        tolerance={0.0001}
-        gravity={[0, -40, 0]}
-        allowSleep={false}
-      >
+      <Physics gravity={[0, 0, -30]}>
         <ambientLight />
         <directionalLight
           castShadow

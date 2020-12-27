@@ -1,9 +1,12 @@
 import React, { useMemo, useRef } from 'react'
+import { useState } from 'react'
 import { useFrame } from 'react-three-fiber'
 import { Cube } from '../Cube/Cube'
 
 export const Cubes = ({ number = 3 }) => {
   const ref = useRef()
+
+  const [hovered, setHovered] = useState([])
 
   const positions = useMemo(() => {
     const pos = []
@@ -27,13 +30,14 @@ export const Cubes = ({ number = 3 }) => {
 
   const handleMove = (id) => {
     console.log(id)
+    setHovered(id)
   }
 
   console.log('1', positions)
 
   return (
     <group ref={ref} dispose={null}>
-      {positions.map((pos) => (
+      {positions.map((pos, index) => (
         <Cube key={pos.id} position={pos.position} pos={pos} />
       ))}
     </group>

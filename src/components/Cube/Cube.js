@@ -55,7 +55,6 @@ export const Cube = (props) => {
       material={materials}
       castShadow
       receiveShadow
-      onClick={(e) => console.log(e)}
     />
   )
 }
