@@ -6,7 +6,7 @@ import { Cubes } from '../Cubes/Cubes'
 
 softShadows()
 
-export const MyCanvas = () => {
+export const MyCanvas = ({random}) => {
   // const keys = {
   //   LEFT: 37, //left arrow
   //   UP: 38, // up arrow
@@ -39,7 +39,7 @@ export const MyCanvas = () => {
             <planeBufferGeometry attach='geometry' args={[100, 100]} />
             <shadowMaterial attach='material' transparent opacity={0.5} />
           </mesh>
-          <Cubes />
+          <Cubes random={random} />
         </group>
         <OrbitControls enableZoom={false} enableKeys={true} />
       </Physics>

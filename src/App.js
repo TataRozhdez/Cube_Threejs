@@ -10,7 +10,13 @@ const trans1 = (x, y) => `translate3d(${x / 10}px,${y / 10}px,0)`
 
 export const App = () => {
   const dispatch = useDispatch()
-  const { cube, play, error, loading } = useSelector((state) => state)
+  const {
+    cube,
+    play,
+    error,
+    loading,
+    random
+  } = useSelector((state) => state)
 
   const [props, set] = useSpring(() => ({
     xy: [0, 0],
@@ -34,7 +40,7 @@ export const App = () => {
         <animated.div
           style={{ transform: props.xy.interpolate(trans1), width: '100%' }}
         >
-          <MyCanvas />
+          <MyCanvas random={random} />
         </animated.div>
       )}
       {!error && !loading && <PlayBtns />}

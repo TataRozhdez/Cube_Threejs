@@ -1,5 +1,9 @@
 import Cube from 'cubejs'
-import { GET_NEW_CUBE, GET_RANDOM_CUBE, STOP_GAME } from './types'
+import {
+  GET_NEW_CUBE,
+  GET_RANDOM_CUBE,
+  STOP_GAME
+} from './types'
 
 export const getNewCube = () => {
   const cube = new Cube()
@@ -12,7 +16,8 @@ export const getNewCube = () => {
 }
 
 export const getRandomCube = (cube) => {
-  const random = cube.randomize()
+  // const random = cube.randomize()
+  const random = Cube.random()
   const solve = random.solve()
 
   return {
